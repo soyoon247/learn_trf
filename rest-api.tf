@@ -71,9 +71,14 @@ resource "aws_api_gateway_integration" "get_brand_integration" {
 }
 
 
-resource "aws_api_gateway_resource" "test_resource" {
+resource "aws_api_gateway_resource" "user_resource" {
   rest_api_id = aws_api_gateway_rest_api.main_api.id
   parent_id   = aws_api_gateway_rest_api.main_api.root_resource_id
-  path_part   = "test_resource"
+  path_part   = "users"
 }
 
+resource "aws_api_gateway_resource" "profile_subresource" {
+  rest_api_id = aws_api_gateway_rest_api.main_api.id
+  parent_id   = aws_api_gateway_resource.user_resource.id
+  path_part   = "profile"
+}
